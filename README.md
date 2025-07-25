@@ -4,6 +4,10 @@ _This project is a work-in-progress and is part of my journey toward becoming a 
 RemoteRoot is a personal front-end project built to test and showcase my skills as a frontend developer.  
 It fetches and displays real-time remote job listings using the [Remotive API](https://remotive.io/api).
 
+## 📱 Current Functionality
+- makes a call to the api upon start
+- lists the available jobs
+  
 ## 🚀Desired End-Result
 - Lists remote jobs dynamically from an external API
 - Allows users to search and filter jobs by category or keyword
