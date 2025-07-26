@@ -7,6 +7,8 @@ It fetches and displays real-time remote job listings using the [Remotive API](h
 ## 📱 Current Functionality
 - makes a call to the api upon start
 - lists the available jobs
+- displays jobs based on user Search
+- displays further job details and option to Apply
   
 ## 🚀Desired End-Result
 - Lists remote jobs dynamically from an external API
