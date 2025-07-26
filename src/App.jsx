@@ -10,9 +10,14 @@ const App = () => {
   const [job, setJob] = useState([]);
   const [loading, setloading] = useState(false);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    const searchQuery = e.target.previousElementSibling.value;
+    fetchJobs(searchQuery);
+    e.target.previousElementSibling.value = ''; // Clear the input field after search
+  };
 
-
-
+  
   const fetchJobs = async (query = '') => {
 
     try {
@@ -53,17 +58,17 @@ const App = () => {
 
       </nav>
       
-      <section className="header mt-20">
+      <section className="header mt-">
         <h1 className='text-6xl font-bold text-center '>RemoteRoot - Jobs Board</h1>
          {/* input field for search */}
-        <div className='flex justify-center mt-10 gap-3'>
+        <div className='flex justify-center mt-10 gap-3 py-10'>
           <input
             type="text"
             placeholder='Search for jobs...'
-            className='border-2 border-gray-300 rounded-lg p-2 w-1/2'
+            className='border-2 border-gray-300 rounded-lg p-2 w-1/2 py-3 focus:outline-none focus:border-blue-500 transition duration-200'
           
           />
-          <button className='bg-blue-500 px-5 py-3 text-white'>Search</button>
+          <button className='bg-blue-500 px-5 py-3 text-white cursor-pointer hover:bg-blue-800 duration-200 rounded-sm ' onClick={handleClick}>Search</button>
         </div>
 
       </section>
