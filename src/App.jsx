@@ -9,10 +9,14 @@ const App = () => {
 
   const [job, setJob] = useState([]);
   const [loading, setloading] = useState(false);
+
+
+
+
   const fetchJobs = async (query = '') => {
 
     try {
-      const endpoint = query ? `${API_BASE_URL}?search=${query}` : API_BASE_URL;
+      const endpoint = query ? `${API_BASE_URL}&search=${query}` : API_BASE_URL;
       const response = await fetch(endpoint);
 
 
@@ -38,6 +42,9 @@ const App = () => {
   }, []);
 
 
+
+
+
   return (
     <div className='main-div '>
       <nav className='flex items-center justify-between px-2'>
@@ -48,6 +55,17 @@ const App = () => {
       
       <section className="header mt-20">
         <h1 className='text-6xl font-bold text-center '>RemoteRoot - Jobs Board</h1>
+         {/* input field for search */}
+        <div className='flex justify-center mt-10 gap-3'>
+          <input
+            type="text"
+            placeholder='Search for jobs...'
+            className='border-2 border-gray-300 rounded-lg p-2 w-1/2'
+          
+          />
+          <button className='bg-blue-500 px-5 py-3 text-white'>Search</button>
+        </div>
+
       </section>
 
       <section className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5   mx-10'>
