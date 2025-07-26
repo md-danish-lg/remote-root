@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Spinner from './components/Spinner';
 import Card from './components/Card'
+import Filter from './components/Filter';
 
 const API_BASE_URL = `https://remotive.com/api/remote-jobs?limit=12`;
 
@@ -9,6 +10,7 @@ const App = () => {
 
   const [job, setJob] = useState([]);
   const [loading, setloading] = useState(false);
+  const [showFilter, setshowFilter] = useState(false)
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -16,6 +18,15 @@ const App = () => {
     fetchJobs(searchQuery);
     e.target.previousElementSibling.value = ''; // Clear the input field after search
   };
+
+  const handleFilter = () => {
+    setshowFilter(!showFilter);
+  };
+
+
+
+
+
 
   
   const fetchJobs = async (query = '') => {
@@ -74,8 +85,18 @@ const App = () => {
           />
           <button className='bg-blue-500 px-5 py-3 text-white cursor-pointer hover:bg-blue-800 duration-200 rounded-sm ' onClick={handleClick}>Search</button>
         </div>
+        
+        <div className='flex justify-start gap-0 items-center px-20 py-5'>
+          <button  className='cursor-pointer px-5 py-2 gap-1 flex items-center font-bold hover:scale-110 duration-200 transition-all' onClick={handleFilter}><img src='/filter-icon.svg' alt='filter-icon' className='h-5'/>Filter</button>
+        </div>
+        {showFilter && (
+            <Filter handleFilter={handleFilter}/>
+        )}
+
 
       </section>
+
+      
 
       <section className='mt-20mx-10'>
 
