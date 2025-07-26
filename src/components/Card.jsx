@@ -1,8 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useState } from "react";
 
 const Card = ({ id, job }) => {
   const [showModal, setShowModal] = useState(false);
+
+  
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showModal]);
+
+  
+
   const handleClose = () => {
     setShowModal(false);
   };
