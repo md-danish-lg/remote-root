@@ -13,6 +13,16 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false)
 
+  useEffect(() => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.documentElement.classList.add("dark");
+    setIsDarkMode(true);
+  }
+}, []);
+
+
+
   const getCategories = async () => {
     const endpoint = "https://remotive.com/api/remote-jobs/categories";
     try {
@@ -95,63 +105,68 @@ const App = () => {
   }, []);
 
   const handleDarkModeToggle = () => {
-    document.documentElement.classList.toggle('dark');
-    setIsDarkMode(prev => !prev);
+    const nextMode = !isDarkMode;
+    setIsDarkMode(nextMode);
+    document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", nextMode ? "dark" : "light");
   }
 
   return (
-    <div className="main-div dark:bg-gray-900 dark:text-white min-h-screen">
-      <nav className="flex items-center justify-between px-2 ">
-        <h1 className="text-4xl font-bold">
-          <a href="#">RemoteRoot</a>
-        </h1>
-        <button className="text-xl md:text-5xl font-bold cursor-pointer" onClick={handleDarkModeToggle}>
-        {isDarkMode ? "🌞" : " 🌙"}
-        </button>
-      </nav>
-
-      <section className="header mt-10">
-        <h1 className="text-6xl font-bold text-center ">
-          RemoteRoot - Jobs Board
-        </h1>
-        {/* input field for search */}
-        <div className="flex justify-center  gap-3 py-10">
-          <input
-            type="text"
-            placeholder="Search for jobs..."
-            className="border-2 border-gray-300 rounded-lg p-2 w-1/2 py-3 focus:outline-none focus:border-blue-500 transition duration-200 dark:bg-gray-800 dark:text-white dark:border-gray-600"
-          />
-          <button
-            className="bg-blue-500 px-5 py-3 text-white cursor-pointer hover:bg-blue-800 duration-200 rounded-sm "
-            onClick={handleClick}
-          >
-            Search
+    <div className="dark:bg-gray-900 dark:text-white min-h-screen w-full">
+      <div className="main-div  container mx-auto px-4">
+        <nav className="flex items-center justify-between px-2 ">
+          <h1 className="md:text-4xl  text-2xl font-bold">
+            <a href="#">RemoteRoot</a>
+          </h1>
+          <button className="text-3xl md:text-5xl font-bold cursor-pointer" onClick={handleDarkModeToggle}>
+          {isDarkMode ? "🌞" : " 🌙"}
           </button>
-        </div>
+        </nav>
 
-        <div className="flex justify-start gap-0 items-center px-20 py-5">
-          <button
-            className="cursor-pointer px-5 py-2 gap-1 flex items-center font-bold hover:scale-110 duration-200 transition-all"
-            onClick={handleFilter}
-          >
-            <img src={isDarkMode ? "/filter-icon-white.svg" : "/filter-icon.svg"} alt="filter-icon" className="h-5" />
-            Filter
-          </button>
-        </div>
-        {showFilter && <Filter handleFilter={handleFilter} categories={categories} onApplyFilter = {handleApplyFilter}/>}
-      </section>
-
-      <section className="mt-20mx-10">
-        {loading ? (
-          <Spinner />
-        ) : (
-          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5   ">
-            {job.map((job) => (
-              <Card key={job.id} job={job} isDarkMode={isDarkMode}/>
-            ))}
+        <section className="header mt-10">
+          <h1 className="md:text-6xl text-4xl font-bold text-center ">
+            RemoteRoot <br />
+            Jobs Board
+          </h1>
+          {/* input field for search */}
+          <div className="flex justify-center  gap-3 py-10">
+            <input
+              type="text"
+              placeholder="Search for jobs..."
+              className="border-2 border-gray-300 rounded-lg p-2 w-1/2 py-3 focus:outline-none focus:border-blue-500 transition duration-200 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+            />
+            <button
+              className="bg-blue-500 px-5 py-3 text-white cursor-pointer hover:bg-blue-800 duration-200 rounded-sm "
+              onClick={handleClick}
+            >
+              Search
+            </button>
           </div>
-        )}
-      </section>
+
+          <div className="flex justify-start gap-0 items-center px-20 py-5">
+            <button
+              className="cursor-pointer px-5 py-2 gap-1 flex items-center font-bold hover:scale-110 duration-200 transition-all"
+              onClick={handleFilter}
+            >
+              <img src={isDarkMode ? "/filter-icon-white.svg" : "/filter-icon.svg"} alt="filter-icon" className="h-5" />
+              Filter
+            </button>
+          </div>
+          {showFilter && <Filter handleFilter={handleFilter} categories={categories} onApplyFilter = {handleApplyFilter}/>}
+        </section>
+
+        <section className="mt-20mx-10">
+          {loading ? (
+            <Spinner />
+          ) : (
+            <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5   ">
+              {job.map((job) => (
+                <Card key={job.id} job={job} isDarkMode={isDarkMode}/>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   );
 };
