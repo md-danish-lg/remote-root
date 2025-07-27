@@ -1,5 +1,8 @@
 # RemoteRoot - Jobs Board
 _This project is a work-in-progress and is part of my journey toward becoming a job-ready developer._
+<br>
+Hosted live at [RemoteRoot](https://remote-root.vercel.app/) using [Vercel](https://vercel.com)
+<hr />
 
 RemoteRoot is a personal front-end project built to test and showcase my skills as a frontend developer.  
 It fetches and displays real-time remote job listings using the [Remotive API](https://remotive.io/api).
@@ -9,6 +12,7 @@ It fetches and displays real-time remote job listings using the [Remotive API](h
 - lists the available jobs
 - displays jobs based on user Search
 - displays further job details and option to Apply
+- displays filter option, present the option to filter from categories and location 
   
 ## 🚀Desired End-Result
 - Lists remote jobs dynamically from an external API
