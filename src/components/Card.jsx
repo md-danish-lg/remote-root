@@ -34,20 +34,20 @@ const Card = ({ id, job, isDarkMode}) => {
           <h3 className="text-sm md:text-2xl lg:text-3xl font-bold">
             {job.title}
           </h3>
-          <p>{job.company_name}</p>
+          <p className="text-[12px] md:text-md ">{job.company_name}</p>
         </div>
         <button
-          className=" text-sm md:text-md  bg-blue-500 text-white px-6 py-3 cursor-pointer  hover:bg-blue-800 transition-all duration-100 font-bold rounded-md mt-auto"
+          className=" text-[12px] md:text-md  bg-blue-500 text-white px-6 py-3 cursor-pointer  hover:bg-blue-800 transition-all duration-100 font-bold rounded-md mt-auto"
           onClick={handleClick}
         >
-          View Details
+          View 
         </button>
       </div>
       <div className="bottom-card flex gap-5 font-bold p-2 mt-2 items-center ">
-        <img src={isDarkMode ? "/clock-icon-white.svg" : "/clock-icon.svg"} alt="" className="h-5 mr-[-10px]" />
-        <p>{job.job_type == "full_time" ? "Full Time" : "Part Time"}</p>
-        <img src={isDarkMode ? "/location-icon-white.svg" : "/location-icon.svg"} alt="" className="h-5 mr-[-10px]" />
-        <p>
+        <img src={isDarkMode ? "/clock-icon-white.svg" : "/clock-icon.svg"} alt="" className="h-[12px] md:h-5 mr-[-10px]" />
+        <p className="text-[12px] md:text-sm">{job.job_type == "full_time" ? "Full Time" : "Part Time"}</p>
+        <img src={isDarkMode ? "/location-icon-white.svg" : "/location-icon.svg"} alt="" className="md:h-5 h-[12px] mr-[-10px]" />
+        <p className="text-[12px] md:text-sm">
           {job.candidate_required_location == "Worldwide"
             ? "Remote"
             : job.candidate_required_location}
