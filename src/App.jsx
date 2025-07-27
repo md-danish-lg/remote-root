@@ -77,7 +77,7 @@ const App = () => {
     setJob([]); // Clear previous jobs before fetching new ones
 
     try {
-      let endpoint = query ? `${API_BASE_URL}&search=${query}` : API_BASE_URL;
+      let endpoint = API_BASE_URL;
       if (query) endpoint += `&search=${query}`;
       if(category) endpoint += `&category=${category}`;
       
