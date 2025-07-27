@@ -15,9 +15,9 @@ const Filter = ({ handleFilter, categories, onApplyFilter}) => {
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-        <div className="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full relative flex flex-col">
+        <div className="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full relative flex flex-col dark:bg-gray-800 dark:text-white">
           <button
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-[35px] font-bold mr-5"
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-[35px] font-bold mr-5 dark:text-white dark:hover:text-gray-300"
             onClick={handleFilter}
           >
             &times;
@@ -29,11 +29,10 @@ const Filter = ({ handleFilter, categories, onApplyFilter}) => {
                 {categories.map((category, index) => (
                     <button
                     key={index}
-                    className={`px-3 py-1 rounded transition duration-200 ${
+                    className={`px-3 py-1 rounded transition duration-200  ${
                       selectedCategory === category.name
                       ? "bg-blue-500 text-white" 
-                      : "bg-gray-200 hover:bg-gray-300"}`}
-
+                      : "bg-gray-200 hover:bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800"}`}
                     onClick={() => setSelectedCategory(category.name)}
                     type="button"
                     >

@@ -11,6 +11,7 @@ const App = () => {
   const [loading, setloading] = useState(false);
   const [showFilter, setshowFilter] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   const getCategories = async () => {
     const endpoint = "https://remotive.com/api/remote-jobs/categories";
@@ -93,16 +94,20 @@ const App = () => {
     fetchJobs();
   }, []);
 
+  const handleDarkModeToggle = () => {
+    document.documentElement.classList.toggle('dark');
+    setIsDarkMode(prev => !prev);
+  }
 
   return (
-    <div className="main-div ">
+    <div className="main-div dark:bg-gray-900 dark:text-white min-h-screen">
       <nav className="flex items-center justify-between px-2 ">
         <h1 className="text-4xl font-bold">
           <a href="#">RemoteRoot</a>
         </h1>
-        <a href="#" className="text-2xl font-bold ">
-          Contact Us
-        </a>
+        <button className="text-xl md:text-5xl font-bold cursor-pointer" onClick={handleDarkModeToggle}>
+        {isDarkMode ? "🌞" : " 🌙"}
+        </button>
       </nav>
 
       <section className="header mt-10">
@@ -114,7 +119,7 @@ const App = () => {
           <input
             type="text"
             placeholder="Search for jobs..."
-            className="border-2 border-gray-300 rounded-lg p-2 w-1/2 py-3 focus:outline-none focus:border-blue-500 transition duration-200"
+            className="border-2 border-gray-300 rounded-lg p-2 w-1/2 py-3 focus:outline-none focus:border-blue-500 transition duration-200 dark:bg-gray-800 dark:text-white dark:border-gray-600"
           />
           <button
             className="bg-blue-500 px-5 py-3 text-white cursor-pointer hover:bg-blue-800 duration-200 rounded-sm "
@@ -129,7 +134,7 @@ const App = () => {
             className="cursor-pointer px-5 py-2 gap-1 flex items-center font-bold hover:scale-110 duration-200 transition-all"
             onClick={handleFilter}
           >
-            <img src="/filter-icon.svg" alt="filter-icon" className="h-5" />
+            <img src={isDarkMode ? "/filter-icon-white.svg" : "/filter-icon.svg"} alt="filter-icon" className="h-5" />
             Filter
           </button>
         </div>
@@ -142,7 +147,7 @@ const App = () => {
         ) : (
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-5   ">
             {job.map((job) => (
-              <Card key={job.id} job={job} />
+              <Card key={job.id} job={job} isDarkMode={isDarkMode}/>
             ))}
           </div>
         )}

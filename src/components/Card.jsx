@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useState } from "react";
 
-const Card = ({ id, job }) => {
+const Card = ({ id, job, isDarkMode}) => {
   const [showModal, setShowModal] = useState(false);
 
   
@@ -28,7 +28,7 @@ const Card = ({ id, job }) => {
   };
 
   const cardContent = (
-    <div className="card shadow-lg bg-black/5 px-5 py-2 hover:scale-104 transition-all duration-200 flex flex-col justify-around">
+    <div className="card rounded-sm shadow-lg bg-black/5 px-5 py-2 hover:scale-104 transition-all duration-200 flex flex-col justify-around dark:bg-white/2 dark:hover:bg-white/5">
       <div className="top-card flex items-center justify-between " id={id}>
         <div className="px-5 w-[240px] md:w-[350px] ">
           <h3 className="text-sm md:text-2xl lg:text-3xl font-bold">
@@ -44,9 +44,9 @@ const Card = ({ id, job }) => {
         </button>
       </div>
       <div className="bottom-card flex gap-5 font-bold p-2 mt-2 items-center ">
-        <img src="/clock-icon.svg" alt="" className="h-5 mr-[-10px]" />
+        <img src={isDarkMode ? "/clock-icon-white.svg" : "/clock-icon.svg"} alt="" className="h-5 mr-[-10px]" />
         <p>{job.job_type == "full_time" ? "Full Time" : "Part Time"}</p>
-        <img src="/location-icon.svg" alt="" className="h-5 mr-[-10px]" />
+        <img src={isDarkMode ? "/location-icon-white.svg" : "/location-icon.svg"} alt="" className="h-5 mr-[-10px]" />
         <p>
           {job.candidate_required_location == "Worldwide"
             ? "Remote"
@@ -60,7 +60,7 @@ const Card = ({ id, job }) => {
       {cardContent}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full relative flex flex-col">
+          <div className="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full relative flex flex-col dark:bg-gray-800 dark:text-white">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-[35px] font-bold mr-5"
               onClick={handleClose}
@@ -72,9 +72,9 @@ const Card = ({ id, job }) => {
             <p className="mb-2">{job.company_name}</p>
 
             <div className="flex font-bold gap-4 mb-2 items-center">
-              <img src="/clock-icon.svg" alt="" className="h-5 mr-[-10px]" />
+              <img src={isDarkMode ? "/clock-icon-white.svg" : "/clock-icon.svg"}alt="" className="h-5 mr-[-10px]" />
         <p>{job.job_type == "full_time" ? "Full Time" : "Part Time"}</p>
-        <img src="/location-icon.svg" alt="" className="h-5 mr-[-10px]" />
+        <img src={isDarkMode ? "/location-icon-white.svg" : "/location-icon.svg"}  alt="" className="h-5 mr-[-10px]" />
         <p>
           {job.candidate_required_location == "Worldwide"
             ? "Remote"
@@ -82,7 +82,7 @@ const Card = ({ id, job }) => {
         </p>
             </div>
             
-            <div  className="mb-4 max-h-64 overflow-y-auto" dangerouslySetInnerHTML={{__html: job.description}}></div>
+            <div  className="mb-4 max-h-64 overflow-y-auto dark:bg-white/5 px-5 py-2 rounded-md" dangerouslySetInnerHTML={{__html: job.description}}></div>
 
             <a
               href={job.url}
