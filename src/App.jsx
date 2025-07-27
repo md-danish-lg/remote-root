@@ -28,7 +28,13 @@ const App = () => {
 
   };
 
-  
+  const handleApplyFilter = (category) => {
+    fetchJobs("", category);
+    setshowFilter(false);
+  }
+
+
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -43,20 +49,34 @@ const App = () => {
   const handleFilter = () => {
     setshowFilter(!showFilter);
   };
+    
+  useEffect(() => {
+    if (showFilter) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showFilter]);
 
-  const fetchJobs = async (query = "") => {
+  const fetchJobs = async (query = "", category="", ) => {
     setloading(true);
     setJob([]); // Clear previous jobs before fetching new ones
 
     try {
-      const endpoint = query ? `${API_BASE_URL}&search=${query}` : API_BASE_URL;
-      const response = await fetch(endpoint);
+      let endpoint = query ? `${API_BASE_URL}&search=${query}` : API_BASE_URL;
+      if (query) endpoint += `&search=${query}`;
+      if(category) endpoint += `&category=${category}`;
+      
 
+      const response = await fetch(endpoint);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      if (data.Respone === "False") {
+      if (data.response === "False") {
         throw new Error("No jobs found");
       }
 
@@ -113,7 +133,7 @@ const App = () => {
             Filter
           </button>
         </div>
-        {showFilter && <Filter handleFilter={handleFilter} categories={categories}/>}
+        {showFilter && <Filter handleFilter={handleFilter} categories={categories} onApplyFilter = {handleApplyFilter}/>}
       </section>
 
       <section className="mt-20mx-10">
